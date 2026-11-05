@@ -1,5 +1,8 @@
 # 桌宠-奶娃小时候 (DSH Desktop Pet)
 
+[![npm](https://img.shields.io/npm/v/dsh-desktop-pet-naiwa.svg)](https://www.npmjs.com/package/dsh-desktop-pet-naiwa)
+[![GitHub](https://img.shields.io/badge/GitHub-dsh--desktop--pet--naiwa-181717?logo=github)](https://github.com/Night-maze/dsh-desktop-pet-naiwa)
+
 A Windows desktop companion built as a DeepSeek Harness plugin. It renders a transparent, frameless, always-on-top WPF window and reports real Agent progress, today's estimated Token cost, and the real Platform wallet balance. It supports click interactions, long-press drag, edge hiding, and drag-and-drop files **to the Windows Recycle Bin**.
 
 中文完整说明：[README.zh.md](README.zh.md)。

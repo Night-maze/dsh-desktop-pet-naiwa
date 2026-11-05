@@ -1,5 +1,8 @@
 # 桌宠-奶娃小时候
 
+[![npm](https://img.shields.io/npm/v/dsh-desktop-pet-naiwa.svg)](https://www.npmjs.com/package/dsh-desktop-pet-naiwa)
+[![GitHub](https://img.shields.io/badge/GitHub-dsh--desktop--pet--naiwa-181717?logo=github)](https://github.com/Night-maze/dsh-desktop-pet-naiwa)
+
 一个基于 DeepSeek Harness 插件机制的 Windows 桌宠：透明、无边框、置顶，能汇报 Agent 进度、显示今日 Token 估算花费与真实余额、响应单击/长按/拖拽、贴边半隐藏，并把拖入的文件**移动到系统回收站**。
 
 > 当前安装方式是 profile 里用 `link:` 指向本目录的 bundle；左侧栏有“🐾 桌宠”设置页。绝对路径开发行仅用于临时调试。
