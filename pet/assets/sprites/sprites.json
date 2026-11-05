@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "spriteHeight": 260,
+  "sprites": {
+    "cheer": {
+      "file": "cheer.png",
+      "width": 211,
+      "height": 260
+    },
+    "idle": {
+      "file": "idle.png",
+      "width": 207,
+      "height": 260
+    },
+    "open": {
+      "file": "open.png",
+      "width": 252,
+      "height": 260
+    },
+    "peace": {
+      "file": "peace.png",
+      "width": 213,
+      "height": 260
+    },
+    "hold": {
+      "file": "hold.png",
+      "width": 187,
+      "height": 260
+    },
+    "heart": {
+      "file": "heart.png",
+      "width": 223,
+      "height": 260
+    },
+    "wave": {
+      "file": "wave.png",
+      "width": 240,
+      "height": 260
+    },
+    "chew": {
+      "file": "chew.png",
+      "width": 230,
+      "height": 260
+    },
+    "think": {
+      "file": "think.png",
+      "width": 175,
+      "height": 260
+    },
+    "sleepy": {
+      "file": "sleepy.png",
+      "width": 183,
+      "height": 260
+    },
+    "shy": {
+      "file": "shy.png",
+      "width": 263,
+      "height": 260
+    },
+    "walk": {
+      "file": "walk.png",
+      "width": 149,
+      "height": 260
+    }
+  }
+}

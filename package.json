@@ -1,0 +1,61 @@
+{
+  "name": "dsh-desktop-pet-naiwa",
+  "version": "1.0.0",
+  "description": "桌宠-奶娃小时候 - A Windows desktop companion for DeepSeek Harness: transparent always-on-top pet, agent progress, token/cost estimate, real balance, sidebar settings, and recycle-bin file eating.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "pet",
+    "scripts",
+    "docs",
+    "cordis.patch.yml",
+    "config.example.yml",
+    "README.md",
+    "README.zh.md"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "desktop-pet",
+    "cordis-plugin",
+    "windows",
+    "wpf",
+    "deepseek"
+  ],
+  "author": "Night-maze",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Night-maze/dsh-desktop-pet-naiwa.git"
+  },
+  "homepage": "https://github.com/Night-maze/dsh-desktop-pet-naiwa",
+  "bugs": {
+    "url": "https://github.com/Night-maze/dsh-desktop-pet-naiwa/issues"
+  },
+  "os": [
+    "win32"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-sidebar"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

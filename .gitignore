@@ -1,0 +1,24 @@
+# Runtime data and logs
+_research/
+*.log
+*.log.*
+usage.json
+ui-config.json
+pet-config.json
+window.json
+launcher.log
+
+# Node / package manager
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+.npm/
+.tmp/
+
+# Local editor and secrets
+.vscode/
+.idea/
+.env
+.env.*
+*.pem
+*.key

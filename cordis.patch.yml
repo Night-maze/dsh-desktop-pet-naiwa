@@ -1,0 +1,38 @@
+# Bundle patch for the desktop pet.
+#
+# Installed through the Plugins page or `dsh plugin --profile desktop add
+# link:<this directory>`.  The loader resolves the bare package name from the
+# profile's node_modules.  Override any field below in the profile's
+# cordis.patch.yml or in the plugin's configuration page.
+- insert:
+    - id: desktop-pet
+      name: dsh-desktop-pet-naiwa
+      config:
+        enabled: true
+        autoStart: true
+        statsDisplay: always
+        timezone: Asia/Shanghai
+        currency: auto
+        volume: 0.7
+        scale: 1.0
+        longPressMs: 450
+        dragStartPx: 10
+        edgeThreshold: 24
+        edgeVisibleRatio: 0.38
+        edgeHideDelayMs: 750
+        edgeSlideMs: 180
+        balanceRefreshMs: 60000
+        statsRefreshMs: 30000
+        backfill:
+          enabled: true
+          maxSessions: 120
+          maxBytes: 8388608
+          maxTotalBytes: 67108864
+          timeoutMs: 15000
+        pricing:
+          currency: auto
+          defaultModel: deepseek-flash
+          peakHours:
+            - ["09:00", "12:00"]
+            - ["14:00", "18:00"]
+          holidays: []

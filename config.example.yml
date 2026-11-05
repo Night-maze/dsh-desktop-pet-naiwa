@@ -1,0 +1,178 @@
+# Example config for dsh-desktop-pet-naiwa.
+#
+# Put these keys under the `config:` of the `desktop-pet` row in
+# $DSH_HOME/profiles/<profile>/cordis.patch.yml, or edit the plugin page in the
+# Web GUI (Plugins -> Desktop Pet -> Configure).
+#
+# Every field is optional; the plugin ships working defaults.
+
+enabled: true
+autoStart: true
+
+# A single custom image replaces the built-in 12-pose atlas.  Relative paths
+# resolve against the plugin directory.  A PNG/JPG with a transparent or plain
+# background both work; a plain background is keyed out by the built-in atlas
+# generator only, not at runtime.
+imagePath: ''
+
+# Optional overrides for the built-in assets.  Relative paths resolve against
+# the plugin directory.
+spriteDir: ''
+soundDir: ''
+
+# 0.5 - 2.0.  Scales the whole pet window, its UI, and the image.
+#   1.0 = 360x430 DIPs; 0.5 = 180x215 DIPs (current profile setting).
+scale: 1.0
+# 0.0 - 1.0.  Windows' per-app volume is the final authority.
+volume: 0.7
+
+topmost: true
+shadow: true
+# Hide while a fullscreen game/video/presentation is in front (Windows
+# SHQueryUserNotificationState).  It never hides for a merely maximized window.
+avoidFullscreen: true
+
+# always | hover | off
+statsDisplay: always
+
+# Gesture thresholds.
+longPressMs: 450
+dragStartPx: 10
+
+# Edge half-hide.  `visibleRatio` is the fraction of the window left on-screen.
+edgeThreshold: 24
+edgeVisibleRatio: 0.38
+edgeHideDelayMs: 750
+edgeSlideMs: 180
+
+# Bubble lifetime for ordinary click lines; completion/failure use their own
+# longer lifetimes.
+bubbleMs: 3800
+
+# Data and pricing.
+timezone: Asia/Shanghai
+locale: zh-CN
+# auto uses the wallet currency when available, otherwise CNY.
+currency: auto
+costPrecision: 4
+balanceRefreshMs: 60000
+statsRefreshMs: 30000
+balanceTimeoutMs: 15000
+
+# Bounded restart policy for the WPF child.
+restart:
+  maxAttempts: 5
+  baseDelayMs: 1000
+  maxDelayMs: 30000
+
+# Replay today's stored sessions once at startup so a DSH restart does not
+# erase the morning's total.  Bounded by count, bytes, and time.
+backfill:
+  enabled: true
+  maxSessions: 120
+  maxBytes: 8388608
+  maxTotalBytes: 67108864
+  timeoutMs: 15000
+  concurrency: 2
+
+# Cost is an ESTIMATE: real provider usage (assistant/message and
+# assistant/attempt) multiplied by these public list prices.  The UI labels it
+# with ≈.  Balance is a real Platform wallet read and is never estimated.
+pricing:
+  # CNY | USD | auto
+  currency: auto
+  defaultModel: deepseek-flash
+  # Beijing time.  Weekdays inside these windows use `peak`; everything else
+  # (nights, weekends, listed holidays) uses `offPeak`.
+  peakHours:
+    - ['09:00', '12:00']
+    - ['14:00', '18:00']
+  # Add YYYY-MM-DD entries for Chinese public holidays when you want exact
+  # peak/off-peak billing.  The plugin does not ship a holiday calendar because
+  # it changes every year.
+  holidays: []
+  models:
+    CNY:
+      deepseek-flash:
+        peak: { cacheHit: 0.04, input: 2.00, output: 8.00 }
+        offPeak: { cacheHit: 0.02, input: 1.00, output: 4.00 }
+      deepseek-v4-pro:
+        peak: { cacheHit: 0.30, input: 9.00, output: 27.00 }
+        offPeak: { cacheHit: 0.15, input: 4.50, output: 13.50 }
+    USD:
+      deepseek-flash:
+        peak: { cacheHit: 0.006, input: 0.30, output: 1.20 }
+        offPeak: { cacheHit: 0.003, input: 0.15, output: 0.60 }
+      deepseek-v4-pro:
+        peak: { cacheHit: 0.044, input: 1.32, output: 3.96 }
+        offPeak: { cacheHit: 0.022, input: 0.66, output: 1.98 }
+
+# Click interactions.  A click picks one entry by weight.  `sprite` names a
+# file in spriteDir without `.png` (for example wave, peace, think, hold).
+# Remove an entry to remove that pose from the click pool.  `animation` is one
+# of blink/jump/shake/heart/line/dance; `line` is the generic no-special-FX
+# path.  `sprite` is authoritative when set; the state fallback is used only
+# when it is empty.
+interactions:
+  - id: blink
+    weight: 1.2
+    animation: blink
+    sprite: sleepy
+    texts: ['眨眼~', '看不到我看不到我']
+  - id: jump
+    weight: 1.0
+    animation: jump
+    sprite: cheer
+    texts: ['跳一下！', '嘿咻！']
+  - id: shake
+    weight: 1.0
+    animation: shake
+    sprite: shy
+    texts: ['晃晃脑袋～', '晕乎乎…']
+  - id: heart
+    weight: 0.8
+    animation: heart
+    sprite: heart
+    texts: ['给你一颗小心心', '最喜欢你啦']
+  - id: line
+    weight: 1.4
+    animation: line
+    sprite: shy
+    texts: ['今天也要加油！', '要摸摸头吗？', '再戳就咬你哦（骗你的）', '记得喝水呀～']
+  - id: dance
+    weight: 0.6
+    animation: dance
+    sprite: cheer
+    texts: ['跳舞给你看！', '啦啦啦～']
+
+lines:
+  - '戳我干嘛呀～'
+  - '今天也要加油！'
+  - '要摸摸头吗？'
+  - '我可是很厉害的！'
+  - '再戳就咬你哦（骗你的）'
+  - '记得喝水呀～'
+
+toolLabels:
+  pwsh: 运行命令
+  bash: 运行命令
+  read: 看文件
+  write: 写文件
+  edit: 改代码
+  fs: 整理文件
+  web_search: 上网查资料
+  web_fetch: 打开网页
+  todo_write: 列计划
+  subagent: 叫小伙伴帮忙
+  workflow: 编排任务
+  present: 生成成果
+
+# Drops are refused when the path is one of these prefixes (or a drive root).
+# The pet itself also refuses reparse points/junctions.
+protectPaths:
+  - 'C:\Windows'
+  - 'C:\Program Files'
+  - 'C:\Program Files (x86)'
+
+skipSubagents: true
+debug: false
