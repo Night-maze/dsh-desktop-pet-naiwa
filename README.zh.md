@@ -254,6 +254,7 @@ dsh plugin --profile desktop add link:F:\path\to\dsh-desktop-pet-naiwa
 - **不伪造数据**：Token 来自 provider usage；余额来自账号 API；进度不显示编造百分比。接口失败时显示 `—`/stale，不影响基础互动。
 - **刷新上限/退避**：余额最小 30s，失败退避；统计 30s；账本写盘 1.5s debounce；无无限循环请求。
 - **loopback 鉴权**：bridge 只绑定 `127.0.0.1`，每次启动随机 24 字节 token，首行 hello 校验；只接受一个 pet 连接。
+- **设置接口准入**：`/desktop-pet-api/*` 先过组合层的 `ctx.connection.requestRejection`——Host 头挡住 DNS rebinding，Origin 挡住跨站调用，浏览器登录 cookie 要求真实会话；没有 `connection` 服务的组合退回 loopback 检查。`lib/api-fence.js` 里实现了这层判断，`test/run-tests.mjs` 覆盖了 403/401/放行/失败关闭四种结果。
 
 ## 6. 测试
 
@@ -263,7 +264,7 @@ dsh plugin --profile desktop add link:F:\path\to\dsh-desktop-pet-naiwa
 node test/run-tests.mjs
 ```
 
-覆盖配置夹取、时区/峰谷、金额/Token 格式化、账本去重/替换/重试。
+覆盖配置夹取、时区/峰谷、金额/Token 格式化、账本去重/替换/重试，以及设置接口准入（跨站/rebinding 拒绝、未登录拒绝、同源放行、无 connection 服务时退回 loopback、判断失败时关闭）。
 
 ### WPF + Host 集成（mock Cordis）
 

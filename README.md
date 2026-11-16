@@ -63,4 +63,4 @@ powershell -STA -File scripts/test-recycle.ps1
 
 ## Safety boundary
 
-The only file-removal path is the Windows Shell recycle API with `FOFX_RECYCLEONDELETE`. If the Shell cannot recycle, the operation fails and the original stays. The pet refuses drive roots, system directories, reparse points, and restricted (AppContainer/low-integrity) processes. Cost is an estimate, balance is real, and progress is not fabricated.
+The settings API (`/desktop-pet-api/*`) answers only requests the composition's `ctx.connection.requestRejection` admits: the Host header rules out DNS rebinding, the Origin rules out cross-site calls, and the browser login cookie requires a real session. The loopback-only check stays as the boundary for profiles that ship no `connection` service. The only file-removal path is the Windows Shell recycle API with `FOFX_RECYCLEONDELETE`. If the Shell cannot recycle, the operation fails and the original stays. The pet refuses drive roots, system directories, reparse points, and restricted (AppContainer/low-integrity) processes. Cost is an estimate, balance is real, and progress is not fabricated.

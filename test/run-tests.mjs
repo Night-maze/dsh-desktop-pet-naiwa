@@ -9,6 +9,7 @@ import assert from 'node:assert/strict'
 import { mkdirSync, mkdtempSync, rmSync } from 'node:fs'
 import { join } from 'node:path'
 import { resolveConfig } from '../lib/config.js'
+import { rejectionOf } from '../lib/api-fence.js'
 import {
   dateKey,
   dayRange,
@@ -144,6 +145,46 @@ test('ledger keeps retried attempts only after retry-started', () => {
   assert.equal(summary.input, 30)
   assert.equal(summary.output, 20)
   ledger.dispose()
+})
+
+// The HTTP API is mounted on the bare `webServer` carrier, which authenticates
+// nothing; `rejectionOf` is where the composition's Host / Origin and session
+// checks reach these routes.  A route that serves a request the fence rejects is
+// reachable from any page in the user's browser through DNS rebinding.
+function fenceCtx(answer) {
+  return {
+    get(name) {
+      assert.equal(name, 'connection')
+      if (answer === 'absent') return undefined
+      if (answer === 'throws') return { requestRejection() { throw new Error('no request state') } }
+      return { requestRejection: () => answer }
+    },
+  }
+}
+
+test('api fence rejects a cross-site or rebound request', () => {
+  assert.equal(rejectionOf(fenceCtx(403), { headers: { host: 'evil.example' } }), 403)
+})
+
+test('api fence rejects an unauthenticated browser session', () => {
+  assert.equal(rejectionOf(fenceCtx(401), { headers: { origin: 'http://127.0.0.1:59317' } }), 401)
+})
+
+test('api fence admits a trusted same-origin request', () => {
+  assert.equal(rejectionOf(fenceCtx(undefined), { headers: { host: '127.0.0.1:59317', origin: 'http://127.0.0.1:59317' } }), undefined)
+})
+
+test('api fence leaves the loopback check in charge without a connection service', () => {
+  assert.equal(rejectionOf(fenceCtx('absent'), { headers: {} }), undefined)
+  assert.equal(rejectionOf(undefined, { headers: {} }), undefined)
+})
+
+test('api fence fails closed when the connection service cannot judge a request', () => {
+  assert.equal(rejectionOf(fenceCtx('throws'), { headers: {} }), 403)
+})
+
+test('api fence ignores answers that are not 401 or 403', () => {
+  assert.equal(rejectionOf(fenceCtx(500), { headers: {} }), undefined)
 })
 
 // Best-effort cleanup of this test's own artifact.  It is not a user document.

@@ -1,6 +1,6 @@
 {
   "name": "dsh-desktop-pet-naiwa",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "桌宠-奶娃小时候 - A Windows desktop companion for DeepSeek Harness: transparent always-on-top pet, agent progress, token/cost estimate, real balance, sidebar settings, and recycle-bin file eating.",
   "type": "module",
   "main": "lib/index.js",
